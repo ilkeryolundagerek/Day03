@@ -38,6 +38,23 @@ namespace Day03
             Console.WriteLine();
 
             elements.Filter(x => x.Age < 250).ForEach(x => Console.WriteLine(x));
+
+            Console.WriteLine();
+            //LINQ: (Language Integrated Query)
+
+            //Anonim tip (Her hangi bir class'a bağlı olmayan tipler) kullanan koleksiyon oluşturur.
+            var new_elements = from x in elements
+                               where x.Age < 250
+                               select new { x.Id, x.Name };
+
+            //Genel olarak yapısal değişikliklerde yeni oluşacak örnekler için class tanımlaması yapılması tavsiye edilir.
+            var agelessActiveElements = from x in elements
+                                        where x.Age < 250
+                                        select new AgelessActiveElement { Id = x.Id, Name = x.Name };
+
+            new_elements.ForEach(x => Console.WriteLine(x));
+            Console.WriteLine();
+            agelessActiveElements.ForEach(x => Console.WriteLine(x));
         }
     }
 }

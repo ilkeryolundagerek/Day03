@@ -39,4 +39,15 @@ namespace Day03
             return $"{Id} ({Active}): {Name} ({Age})";
         }
     }
+
+    public class AgelessActiveElement
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id}: {Name}";
+        }
+    }
 }
