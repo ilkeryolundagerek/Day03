@@ -11,6 +11,7 @@ namespace Day03
     {
         static void Main(string[] args)
         {
+            /*
             string[] words = { "ilker", "ilkay", "bardak", "tabak" };
             foreach (var word in words)
             {
@@ -50,11 +51,36 @@ namespace Day03
             //Genel olarak yapısal değişikliklerde yeni oluşacak örnekler için class tanımlaması yapılması tavsiye edilir.
             var agelessActiveElements = from x in elements
                                         where x.Age < 250
-                                        select new AgelessActiveElement { Id = x.Id, Name = x.Name };
-
+                                        select new AgelessActiveElement
+                                        {
+                                            Id = x.Id,
+                                            Name = x.Name
+                                        };
+            var anonim = new { a = 12, b = 85 };
             new_elements.ForEach(x => Console.WriteLine(x));
             Console.WriteLine();
             agelessActiveElements.ForEach(x => Console.WriteLine(x));
+            */
+
+            var NewElements = Element.GetSamples();
+            var ElementPools = ElementPool.GetSamples();
+
+            //Bu yapı List gibi üretilmiş nesnelerle çalıştırılırsa çok fazla yük bindirir.
+            var elementPoolsWithElements = from p in ElementPools
+                                           join e in NewElements
+                                           on p.Id equals e.PoolId
+                                           select new
+                                           {
+                                               PoolId = p.Id,
+                                               PoolName = p.Name,
+                                               PoolStatus = p.Active,
+                                               ElementId = e.Id,
+                                               ElementName = e.Name,
+                                               ElementStatus = e.Active,
+                                               ElementAge = e.Age
+                                           };
+            Console.WriteLine(elementPoolsWithElements.Count());
+            elementPoolsWithElements.Filter(x=>x.ElementAge<250).ForEach(x => Console.WriteLine(x));
         }
     }
 }

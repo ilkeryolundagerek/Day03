@@ -13,6 +13,7 @@ namespace Day03
         public string Name { get; set; }
         public int Age { get; set; }
         public bool Active { get; set; }
+        public int PoolId { get; set; }
 
         private static Random random = new Random();
         public static List<Element> GetSamples()
@@ -26,7 +27,8 @@ namespace Day03
                     Id = i,
                     Name = $"Element_{random.Next(100, 1000)}",
                     Age = random.Next(1, 1000),
-                    Active = random.Next(2) == 1
+                    Active = random.Next(2) == 1,
+                    PoolId = random.Next(1, 4)
                 };
                 list.Add(temp);
             }
@@ -37,6 +39,37 @@ namespace Day03
         public override string ToString()
         {
             return $"{Id} ({Active}): {Name} ({Age})";
+        }
+    }
+
+    public class ElementPool
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool Active { get; set; }
+
+        private static Random random = new Random();
+        public static List<ElementPool> GetSamples()
+        {
+            var list = new List<ElementPool>();
+
+            for (int i = 1; i <= 3; i++)
+            {
+                ElementPool temp = new ElementPool
+                {
+                    Id = i,
+                    Name = $"Element_Pool_{i}",
+                    Active = random.Next(2) == 1
+                };
+                list.Add(temp);
+            }
+
+            return list;
+        }
+
+        public override string ToString()
+        {
+            return $"{Id} ({Active}): {Name}";
         }
     }
 
