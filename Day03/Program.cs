@@ -79,8 +79,37 @@ namespace Day03
                                                ElementStatus = e.Active,
                                                ElementAge = e.Age
                                            };
-            Console.WriteLine(elementPoolsWithElements.Count());
-            elementPoolsWithElements.Filter(x=>x.ElementAge<250).ForEach(x => Console.WriteLine(x));
+
+            var elementPoolsWithElements2 = ElementPools.Join(NewElements, x => x.Id, y => y.PoolId, (p, e) => new { PoolId = p.Id, PoolName = p.Name, PoolStatus = p.Active, ElementId = e.Id, ElementName = e.Name, ElementStatus = e.Active, ElementAge = e.Age });
+
+            Console.WriteLine(elementPoolsWithElements2.Count());
+            elementPoolsWithElements2.Filter(x => x.ElementAge < 250).ForEach(x => Console.WriteLine(x));
+            Console.WriteLine();
+
+            //Group By: Verilen kriterlere göre veriyi grupluyor.
+            var elementPoolsGroup = elementPoolsWithElements2
+                .GroupBy(x => x.PoolId)
+                .Select(g => new
+                {
+                    PoolId = g.Key,
+                    ElementCount = g.Count(),
+                    AgeAvg = g.Average(x => x.ElementAge)
+                });
+
+            var elementPoolsGroup2 = from e in elementPoolsWithElements2
+                                     orderby e.PoolId descending
+                                     group e by e.PoolId into g
+                                     select new
+                                     {
+                                         PoolId = g.Key,
+                                         ElementCount = g.Count(),
+                                         AgeAvg = g.Average(x => x.ElementAge),
+                                         AgeSum = g.Sum(x=>x.ElementAge),
+                                         AgeMax = g.Max(x=>x.ElementAge),
+                                         AgeMin = g.Min(x=>x.ElementAge)
+                                     };
+
+            elementPoolsGroup2.ForEach(x => Console.WriteLine(x));
         }
     }
 }
