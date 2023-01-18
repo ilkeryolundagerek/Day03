@@ -2,20 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities.CustomAttributes;
 
 namespace Day03
 {
+    [Sample]
     public class Element
     {
-        public int Id { get; set; }
+        [Sample]//: Sadece class, enum ve field için ayarlandı
+        public int Test; //Field
+
+        //[Sample]
+        public int Id { get; set; } //Property
         public string Name { get; set; }
         public int Age { get; set; }
         public bool Active { get; set; }
         public int PoolId { get; set; }
 
         private static Random random = new Random();
+
+        //[Sample]
         public static List<Element> GetSamples()
         {
             var list = new List<Element>();
@@ -36,6 +45,7 @@ namespace Day03
             return list;
         }
 
+        [Sample]
         public override string ToString()
         {
             return $"{Id} ({Active}): {Name} ({Age})";

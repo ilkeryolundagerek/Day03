@@ -61,7 +61,7 @@ namespace Day03
             Console.WriteLine();
             agelessActiveElements.ForEach(x => Console.WriteLine(x));
             */
-
+            /*
             var NewElements = Element.GetSamples();
             var ElementPools = ElementPool.GetSamples();
 
@@ -110,6 +110,7 @@ namespace Day03
                                      };
 
             elementPoolsGroup2.ForEach(x => Console.WriteLine(x));
+            */
         }
     }
 }
